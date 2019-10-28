@@ -7,7 +7,11 @@
                  [org.clojars.nakkaya/miglayout "3.7.3.1"]
 
                  [org.eclipse/swt-gtk-linux-x86_64 "3.5.2"]
-                 
+                 [org.eclipse.swt/org.eclipse.swt.cocoa.macosx.x86_64 "4.3"]
+                 [org.eclipse/jface "3.3.0-I20070606-0010"]
+                 ;; https://mvnrepository.com/artifact/org.eclipse.core/org.eclipse.core.runtime
+                 [org.eclipse.core/org.eclipse.core.runtime "3.7.0"]
+
                  ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.jface.text
                  ;;[org.eclipse.platform/org.eclipse.swt "3.112.0"]
 
@@ -16,7 +20,7 @@
                  ;;[org.eclipse.platform/org.eclipse.swt.gtk.linux.x86_64 "3.112.0"]
 
                  ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.jface
-                 [org.eclipse.platform/org.eclipse.jface "3.17.0" :exclusions [org.eclipse.platform/org.eclipse.equinox.common org.eclipse.platform/org.eclipse.core.commands org.eclipse.platform/org.eclipse.swt]]
+                 ;;[org.eclipse.platform/org.eclipse.jface "3.17.0" :exclusions [org.eclipse.platform/org.eclipse.equinox.common org.eclipse.platform/org.eclipse.core.commands org.eclipse.platform/org.eclipse.swt]]
                  
 
                  ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.text
@@ -31,10 +35,10 @@
 
                  
                  ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.core.databinding.property
-                 [org.eclipse.platform/org.eclipse.core.databinding.property "1.7.100" :exclusions [org.eclipse.platform/org.eclipse.equinox.common org.eclipse.platform/org.eclipse.core.databinding.observable] ]
+                 ;;[org.eclipse.platform/org.eclipse.core.databinding.property "1.7.100" :exclusions [org.eclipse.platform/org.eclipse.equinox.common org.eclipse.platform/org.eclipse.core.databinding.observable] ]
 
                  ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.core.databinding.observable
-                 [org.eclipse.platform/org.eclipse.core.databinding.observable "1.8.0" :exclusions [org.eclipse.platform/org.eclipse.equinox.common]]
+                 ;;[org.eclipse.platform/org.eclipse.core.databinding.observable "1.8.0" :exclusions [org.eclipse.platform/org.eclipse.equinox.common]]
 
                  ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.core.databinding.beans
                  ;;[org.eclipse.platform/org.eclipse.core.databinding.beans "1.5.100"]
