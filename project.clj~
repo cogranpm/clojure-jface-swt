@@ -1,0 +1,70 @@
+(defproject jface-swt "0.1.0-SNAPSHOT"
+  :description "FIXME: write description"
+  :url "http://example.com/FIXME"
+  :license {:name "EPL-2.0 OR GPL-2.0-or-later WITH Classpath-exception-2.0"
+            :url "https://www.eclipse.org/legal/epl-2.0/"}
+  :dependencies [[org.clojure/clojure "1.10.0"]
+                 ;;[org.clojars.nakkaya/miglayout "3.7.3.1"]
+
+                 ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.jface.text
+                 [org.eclipse.platform/org.eclipse.swt "3.112.0"]
+
+
+                 ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.swt.gtk.linux.x86_64
+                 ;;[org.eclipse.platform/org.eclipse.swt.gtk.linux.x86_64 "3.112.0"]
+
+                 
+
+                 ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.jface
+                 [org.eclipse.platform/org.eclipse.jface "3.17.0"  :exclusions [org.eclipse.platform/org.eclipse.swt] ]
+
+                 ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.text
+                 ;;[org.eclipse.platform/org.eclipse.text "3.9.0"]
+
+                 ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.core.jobs
+                 ;;[org.eclipse.platform/org.eclipse.core.jobs "3.10.500"]
+
+                 ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.jface.databinding
+                 ;;causes a crash
+                 ;;[org.eclipse.platform/org.eclipse.jface.databinding "1.9.100"]
+
+                 
+                 ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.core.databinding.property
+                 ;;[org.eclipse.platform/org.eclipse.core.databinding.property "1.7.100"]
+
+                 ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.core.databinding.observable
+                 ;;[org.eclipse.platform/org.eclipse.core.databinding.observable "1.8.0"]
+
+                 ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.core.databinding.beans
+                 ;;[org.eclipse.platform/org.eclipse.core.databinding.beans "1.5.100"]
+
+
+
+                 ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.swt.win32.win32.x86_64
+                 ;;[org.eclipse.platform/org.eclipse.swt.win32.win32.x86_64 "3.112.0"]
+
+                 ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.swt.cocoa.macosx.x86_64
+                 ;;[org.eclipse.platform/org.eclipse.swt.cocoa.macosx.x86_64 "3.112.0"]
+
+
+                 ;;[org.eclipse.platform/org.eclipse.jface.text "3.15.300"]
+                 ]
+  :repositories [["java.net" "https://download.java.net/maven/2"]
+                  ["sonatype" {:url "https://oss.sonatype.org/content/repositories/releases"
+                              ;; If a repository contains releases only setting
+                              ;; :snapshots to false will speed up dependencies.
+                              :snapshots false
+                              ;; Disable signing releases deployed to this repo.
+                              ;; (Not recommended.)
+                              :sign-releases false
+                              ;; You can also set the policies for how to handle
+                              ;; :checksum failures to :fail, :warn, or :ignore.
+                              :checksum :fail
+                              ;; How often should this repository be checked for
+                              ;; snapshot updates? (:daily, :always, or :never)
+                              :update :always
+                              ;; You can also apply them to releases only:
+                              :releases {:checksum :fail :update :always}}]]
+  :main ^:skip-aot jface-swt.core
+  :target-path "target/%s"
+  :profiles {:uberjar {:aot :all}})
