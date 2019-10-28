@@ -1,5 +1,13 @@
 # jface-swt
 
+An attempt to get a jface/swt application up and running using pure clojure/lein for the running/building
+and trying to get it going in the repl
+it falls over with DataBinding, it's not simple enough to get a javabean with PropertyChange support, too much code needed
+could be a macro I suppose
+it's all a bit easier in groovy
+did however get the dependencies going with leiningen, seemed to have to use old versions of the eclipse jars from maven central or it would crash leiningen
+
+
 FIXME: description
 
 ## Installation
