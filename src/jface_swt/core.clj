@@ -8,6 +8,17 @@
   (:gen-class))
 
 
+(defprotocol Entity
+  (info [this arg]))
+
+(deftype Sample []
+  Entity
+  (info [this arg]
+    (println arg)))
+
+(def main-entity
+  (Sample.))
+
 (def menu-manager
   (new MenuManager "menu"))
 
@@ -51,6 +62,8 @@
   (Display/getCurrent))
 
 
+;; swt style main loop, not used any more
+(comment
 (defn gui-loop [display shell]
   (when-not (. shell (isDisposed))
     (if-not (. display (readAndDispatch))
@@ -64,11 +77,14 @@
                 (.setText "hello there"))]
     (gui-loop display shell)
     (. display (dispose))))
+)
+
 
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
   (println "Hello, World!")
+  (.info main-entity "hello world")
   ;;(gui-main)
   (. my-app-window setBlockOnOpen true)
   (. my-app-window addMenuBar)
