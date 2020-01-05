@@ -36,7 +36,7 @@
       ;;(new Point 500 500)
       (let [disp (Display/getDefault)]
         (let [clientArea (.getClientArea disp)]
-          (new Point (.width clientArea) (.height clientArea))
+          (new Point (/ (.width clientArea) 2) (/ (.height clientArea) 2))
           )
         )
       )
