@@ -22,6 +22,7 @@
 (def menu-manager
   (new MenuManager "menu"))
 
+;; must create a proxy  for jface application window to override important hook methods
 (def my-app-window
   (proxy
       [ApplicationWindow]
@@ -32,7 +33,13 @@
       (println "create contents called"))
 
     (getInitialSize []
-      (new Point 500 500))
+      ;;(new Point 500 500)
+      (let [disp (Display/getDefault)]
+        (let [clientArea (.getClientArea disp)]
+          (new Point (.width clientArea) (.height clientArea))
+          )
+        )
+      )
 
     (configureShell [newShell]
       (proxy-super configureShell newShell)
@@ -62,30 +69,12 @@
   (Display/getCurrent))
 
 
-;; swt style main loop, not used any more
-(comment
-(defn gui-loop [display shell]
-  (when-not (. shell (isDisposed))
-    (if-not (. display (readAndDispatch))
-      (. display (sleep)))
-    (recur display shell)))
-  
-(defn gui-main []
-  (let [display (new Display)
-        shell (doto (new Shell display)
-                (.open)
-                (.setText "hello there"))]
-    (gui-loop display shell)
-    (. display (dispose))))
-)
 
 
 (defn -main
-  "I don't do a whole lot ... yet."
+  "example of a jface-swt stand alone application in clojure"
   [& args]
-  (println "Hello, World!")
   (.info main-entity "hello world")
-  ;;(gui-main)
   (. my-app-window setBlockOnOpen true)
   (. my-app-window addMenuBar)
   (. my-app-window addStatusLine)
