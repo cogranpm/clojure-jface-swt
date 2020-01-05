@@ -36,7 +36,7 @@
 
     (configureShell [newShell]
       (proxy-super configureShell newShell)
-      (. newShell (setText "Kernai"))
+      (. newShell (setText "Kernai on Clojure"))
       ;;should be setting images here on the shell
       )
 

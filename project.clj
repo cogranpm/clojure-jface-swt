@@ -3,14 +3,16 @@
   :url "http://example.com/FIXME"
   :license {:name "EPL-2.0 OR GPL-2.0-or-later WITH Classpath-exception-2.0"
             :url "https://www.eclipse.org/legal/epl-2.0/"}
+
+
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [org.clojars.nakkaya/miglayout "3.7.3.1"]
 
-                 [org.eclipse/swt-gtk-linux-x86_64 "3.5.2"]
-                 [org.eclipse.swt/org.eclipse.swt.cocoa.macosx.x86_64 "4.3"]
-                 [org.eclipse/jface "3.3.0-I20070606-0010"]
+                 ;;[org.eclipse/swt-gtk-linux-x86_64 "3.5.2"]
+                 ;;[org.eclipse.swt/org.eclipse.swt.cocoa.macosx.x86_64 "4.3"]
+                 ;;[org.eclipse/jface "3.3.0-I20070606-0010"]
                  ;; https://mvnrepository.com/artifact/org.eclipse.core/org.eclipse.core.runtime
-                 [org.eclipse.core/org.eclipse.core.runtime "3.7.0"]
+                 ;;[org.eclipse.core/org.eclipse.core.runtime "3.7.0"]
 
                  ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.jface.text
                  ;;[org.eclipse.platform/org.eclipse.swt "3.112.0"]
@@ -69,7 +71,14 @@
                               ;; snapshot updates? (:daily, :always, or :never)
                               :update :always
                               ;; You can also apply them to releases only:
-                              :releases {:checksum :fail :update :always}}]]
+                               :releases {:checksum :fail :update :always}}]]
+  :resource-paths ["lib/org.eclipse.swt_3.111.0.v20190605-1801.jar"
+                   "lib/org.eclipse.swt.gtk.linux.x86_64_3.112.0.v20190904-0609.jar"
+                   "lib/org.eclipse.jface_3.16.0.v20190528-0922.jar" 
+                   "lib/org.eclipse.core.runtime_3.15.300.v20190508-0543.jar"
+                   "lib/org.eclipse.osgi_3.14.0.v20190517-1309.jar"
+                   "lib/org.eclipse.equinox.common_3.10.400.v20190516-1504.jar" 
+                   "lib/org.eclipse.core.commands_3.9.400.v20190516-1358.jar"]
   :main ^:skip-aot jface-swt.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})
