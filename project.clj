@@ -7,54 +7,24 @@
 
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [org.clojars.nakkaya/miglayout "3.7.3.1"]
+                 ;;note, there are dependencies for all the eclipse stuff in maven
+                 ;;but it seems to be a mess
+                 ;;for now these deps will be managed manually in lib directory via the resource-paths attribute below
+                 ;;this means that they won't be packaged quite right in uberjar so created a shell script runner.sh to set the classpath
+                 ;;still uses the uberjar underneath
 
+                 ;;here are examples of the maven deps for eclipse stuff                 
                  ;;[org.eclipse/swt-gtk-linux-x86_64 "3.5.2"]
                  ;;[org.eclipse.swt/org.eclipse.swt.cocoa.macosx.x86_64 "4.3"]
                  ;;[org.eclipse/jface "3.3.0-I20070606-0010"]
-                 ;; https://mvnrepository.com/artifact/org.eclipse.core/org.eclipse.core.runtime
                  ;;[org.eclipse.core/org.eclipse.core.runtime "3.7.0"]
-
-                 ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.jface.text
                  ;;[org.eclipse.platform/org.eclipse.swt "3.112.0"]
-
-                 ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.swt.gtk.linux.x86_64
                  ;;causes a big fat crash
-                 ;;[org.eclipse.platform/org.eclipse.swt.gtk.linux.x86_64 "3.112.0"]
-
-                 ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.jface
                  ;;[org.eclipse.platform/org.eclipse.jface "3.17.0" :exclusions [org.eclipse.platform/org.eclipse.equinox.common org.eclipse.platform/org.eclipse.core.commands org.eclipse.platform/org.eclipse.swt]]
-                 
-
-                 ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.text
                  ;;[org.eclipse.platform/org.eclipse.text "3.9.0"]
-
-                 ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.core.jobs
                  ;;[org.eclipse.platform/org.eclipse.core.jobs "3.10.500"]
-
-                 ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.jface.databinding
-                 ;;causes a crash
                  ;;[org.eclipse.platform/org.eclipse.jface.databinding "1.9.100"]
-
-                 
-                 ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.core.databinding.property
                  ;;[org.eclipse.platform/org.eclipse.core.databinding.property "1.7.100" :exclusions [org.eclipse.platform/org.eclipse.equinox.common org.eclipse.platform/org.eclipse.core.databinding.observable] ]
-
-                 ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.core.databinding.observable
-                 ;;[org.eclipse.platform/org.eclipse.core.databinding.observable "1.8.0" :exclusions [org.eclipse.platform/org.eclipse.equinox.common]]
-
-                 ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.core.databinding.beans
-                 ;;[org.eclipse.platform/org.eclipse.core.databinding.beans "1.5.100"]
-
-
-
-                 ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.swt.win32.win32.x86_64
-                 ;;[org.eclipse.platform/org.eclipse.swt.win32.win32.x86_64 "3.112.0"]
-
-                 ;; https://mvnrepository.com/artifact/org.eclipse.platform/org.eclipse.swt.cocoa.macosx.x86_64
-                 ;;[org.eclipse.platform/org.eclipse.swt.cocoa.macosx.x86_64 "3.112.0"]
-
-
-                 ;;[org.eclipse.platform/org.eclipse.jface.text "3.15.300"]
                  ]
   :repositories [["java.net" "https://download.java.net/maven/2"]
                   ["sonatype" {:url "https://oss.sonatype.org/content/repositories/releases"
