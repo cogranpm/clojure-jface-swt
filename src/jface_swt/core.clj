@@ -23,6 +23,8 @@
 (def menu-manager
   (new MenuManager "menu"))
 
+(declare my-app-window)
+
 (def quit-action
   (proxy [Action] ["&Quit"]
     (run []
