@@ -4,7 +4,7 @@
   (:import (org.eclipse.jface.window ApplicationWindow))
   (:import (org.eclipse.swt.graphics Point))
   (:import (org.eclipse.swt SWT))
-  (:import (org.eclipse.jface.action ToolBarManager StatusLineManager MenuManager Separator))
+  (:import (org.eclipse.jface.action IAction Action ToolBarManager StatusLineManager MenuManager Separator))
   (:gen-class))
 
 
@@ -21,6 +21,12 @@
 
 (def menu-manager
   (new MenuManager "menu"))
+
+(def quit-action
+  (proxy [Action] ["&Quit"]
+    (run []
+      (.close my-app-window))
+    ))
 
 ;; must create a proxy  for jface application window to override important hook methods
 (def my-app-window
@@ -48,6 +54,10 @@
       )
 
     (createMenuManager []
+      (let [menu-file (MenuManager. "&File")]
+        (.setAccelerator quit-action (bit-or SWT/MOD1 (int \q)))
+        (.add menu-file quit-action)
+        (.add menu-manager menu-file))
       menu-manager)
       
 
