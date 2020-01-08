@@ -48,7 +48,15 @@
                    "lib/org.eclipse.core.runtime_3.15.300.v20190508-0543.jar"
                    "lib/org.eclipse.osgi_3.14.0.v20190517-1309.jar"
                    "lib/org.eclipse.equinox.common_3.10.400.v20190516-1504.jar" 
-                   "lib/org.eclipse.core.commands_3.9.400.v20190516-1358.jar"]
+                   "lib/org.eclipse.core.commands_3.9.400.v20190516-1358.jar"
+                   "lib/com.ibm.icu_64.2.0.v20190507-1337.jar"
+                   "lib/org.eclipse.core.databinding.beans_1.5.0.v20190510-1100.jar"
+                   "lib/org.eclipse.core.databinding.observable_1.7.0.v20190515-0910.jar"
+                   "lib/org.eclipse.core.databinding.property_1.7.0.v20190510-1100.jar"
+                   "lib/org.eclipse.core.databinding_1.7.400.v20190513-2118.jar"
+                   "lib/org.eclipse.jface.databinding_1.9.0.v20190519-0933.jar"
+                   "lib/org.eclipse.jface.text_3.15.200.v20190519-2344.jar"
+                   "lib/org.eclipse.text_3.8.200.v20190519-2344.jar"]
   :main ^:skip-aot jface-swt.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})
