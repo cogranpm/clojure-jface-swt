@@ -9,6 +9,9 @@
   (:gen-class))
 
 
+(def widgets (atom {}))
+
+
 (defprotocol Entity
   (info [this arg]))
 
@@ -35,11 +38,14 @@
 ;;function to make a child composite widget
 (defn make-child-composite
   [parent]
-  (let [container (proxy [Composite] [parent SWT/NONE])]
-    (println "making child composite")
+;;  (reset! widgets {:fred "someval"})
+;;  (println (:fred @widgets))
+;;  (swap! widgets conj {:simon "ickbah"})
+;;  (println @widgets)
+  (let [container (proxy [Composite] [parent SWT/BORDER])]
+    (let [label (Label. container SWT/BORDER)]
+      (.setText label "I am a composite"))
     (.setLayout container (FillLayout.))
-    (let [label (Label. container SWT/NONE)]
-      (.setText label "fred"))
     (.layout container)
     container
     )
@@ -57,9 +63,9 @@
       (let [container (Composite. parent SWT/NONE)]
            (.setLayout container (FillLayout.))
            (proxy-super setStatus  "howdy everyone")
-           (let [label (Label. container SWT/NONE)]
-             (.setText label "hello fred"))
-           (let [data-binding-view (make-child-composite parent)])
+           (let [data-binding-view (make-child-composite container)]
+             (swap! widgets conj {:databind-example data-binding-view}))
+           (.layout container)
            container)
       )
 
