@@ -13,7 +13,7 @@
                  ;;this means that they won't be packaged quite right in uberjar so created a shell script runner.sh to set the classpath
                  ;;still uses the uberjar underneath
 
-                 ;;here are examples of the maven deps for eclipse stuff                 
+                 ;;here are examples of the maven deps for eclipse stuff
                  ;;[org.eclipse/swt-gtk-linux-x86_64 "3.5.2"]
                  ;;[org.eclipse.swt/org.eclipse.swt.cocoa.macosx.x86_64 "4.3"]
                  ;;[org.eclipse/jface "3.3.0-I20070606-0010"]
