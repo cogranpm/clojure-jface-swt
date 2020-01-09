@@ -61,9 +61,10 @@
 ;;  (swap! widgets conj {:simon "ickbah"})
 ;;  (println @widgets)
   (let [container (proxy [Composite] [parent SWT/BORDER])]
-    (let [label (Label. container SWT/BORDER)]
-      (.setText label "I am a composite"))
-    (.setLayout container (FillLayout.))
+    (let [label (Label. container SWT/BORDER) txtTest (Text. container SWT/NONE)]
+      (.setText label "I am a composite")
+      (.setText txtTest "some text"))
+    (.setLayout container (FillLayout. SWT/VERTICAL))
     (.layout container)
     container
     )
