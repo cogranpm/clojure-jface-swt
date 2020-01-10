@@ -108,8 +108,8 @@
       ;;should be setting images here on the shell
       (reset! image-registry (ImageRegistry. ))
       (.put @image-registry "activity-big" (ImageDescriptor/createFromURL (->> "Activity_32x.png" io/resource)))
-      (println (->> "Activity_32x.png" io/resource))
-      (let [image-big (get @image-registry "activity-big")]
+      (println (.get @image-registry "activity-big"))
+      (let [image-big (.get @image-registry "activity-big")]
         (println  image-big)
         (.setImages newShell  (into-array Image [image-big]))
         )
