@@ -42,7 +42,8 @@
                               :update :always
                               ;; You can also apply them to releases only:
                                :releases {:checksum :fail :update :always}}]]
-  :resource-paths ["lib/org.eclipse.swt_3.111.0.v20190605-1801.jar"
+  :resource-paths ["resources/images"
+                   "lib/org.eclipse.swt_3.111.0.v20190605-1801.jar"
                    "lib/org.eclipse.swt.gtk.linux.x86_64_3.112.0.v20190904-0609.jar"
                    "lib/org.eclipse.jface_3.16.0.v20190528-0922.jar" 
                    "lib/org.eclipse.core.runtime_3.15.300.v20190508-0543.jar"

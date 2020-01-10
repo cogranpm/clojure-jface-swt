@@ -3,7 +3,7 @@
   (:import (org.eclipse.jface.layout GridDataFactory))
   (:import (org.eclipse.swt.layout FillLayout GridLayout))
   (:import (org.eclipse.jface.window ApplicationWindow))
-  (:import (org.eclipse.swt.graphics Point))
+  (:import (org.eclipse.swt.graphics Point Image))
   (:import (org.eclipse.swt SWT))
   (:import (org.eclipse.core.databinding Binding DataBindingContext UpdateValueStrategy AggregateValidationStatus))
   (:import (org.eclipse.core.databinding.beans.typed BeanProperties))
@@ -24,13 +24,17 @@
   (:import (org.eclipse.swt.custom SashForm))
   (:import (org.eclipse.swt.events SelectionAdapter SelectionEvent))
   (:import (org.eclipse.jface.action IAction Action ToolBarManager StatusLineManager MenuManager Separator))
+  (:import (org.eclipse.jface.resource ImageRegistry ImageDescriptor))
+  (:require [clojure.java.io :as io])
   (:gen-class))
 
 
 (def widgets (atom {}))
 
+(def image-registry (atom nil))
 
 (defprotocol Entity
+
   (info [this arg]))
 
 (deftype Sample []
@@ -97,10 +101,19 @@
         )
       )
 
+
     (configureShell [newShell]
       (proxy-super configureShell newShell)
       (. newShell (setText "Kernai on Clojure"))
       ;;should be setting images here on the shell
+      (reset! image-registry (ImageRegistry. ))
+      (.put @image-registry "activity-big" (ImageDescriptor/createFromURL (->> "Activity_32x.png" io/resource)))
+      (println (->> "Activity_32x.png" io/resource))
+      (let [image-big (get @image-registry "activity-big")]
+        (println  image-big)
+        (.setImages newShell  (into-array Image [image-big]))
+        )
+
       )
 
     (createMenuManager []
