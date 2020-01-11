@@ -105,15 +105,13 @@
     (configureShell [newShell]
       (proxy-super configureShell newShell)
       (. newShell (setText "Kernai on Clojure"))
-      ;;should be setting images here on the shell
+
       (reset! image-registry (ImageRegistry. ))
       (.put @image-registry "activity-big" (ImageDescriptor/createFromURL (->> "Activity_32x.png" io/resource)))
-      (println (.get @image-registry "activity-big"))
-      (let [image-big (.get @image-registry "activity-big")]
-        (println  image-big)
-        (.setImages newShell  (into-array Image [image-big]))
+      (.put @image-registry "activity-small" (ImageDescriptor/createFromURL (io/resource "Activity_16xSM.png")))
+      (let [image-big (.get @image-registry "activity-big") image-small (.get @image-registry "activity-small")]
+        (.setImages newShell  (into-array Image [image-small image-big]))
         )
-
       )
 
     (createMenuManager []
