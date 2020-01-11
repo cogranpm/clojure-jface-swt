@@ -10,7 +10,7 @@
   (:import (org.eclipse.core.databinding.conversion IConverter))
   (:import (org.eclipse.core.databinding.observable ChangeEvent IChangeListener))
   (:import (org.eclipse.core.databinding.observable.list IObservableList WritableList))
-  (:import (org.eclipse.core.databinding.observable.map IObservableMap))
+  (:import (org.eclipse.core.databinding.observable.map IObservableMap WritableMap))
   (:import (org.eclipse.core.databinding.observable.set IObservableSet))
   (:import (org.eclipse.core.databinding.observable.value IObservableValue WritableValue))
   (:import (org.eclipse.core.databinding.validation IValidator ValidationStatus))
@@ -69,7 +69,12 @@
         listContainer (Composite. sashForm SWT/NONE)
         editContainer (Composite. sashForm SWT/NONE)
         label (Label. editContainer SWT/BORDER)
-        txtTest (Text. editContainer SWT/NONE)]
+        txtTest (Text. editContainer SWT/NONE)
+        lblError (Label. editContainer SWT/NONE)
+        dbc (DataBindingContext.)
+        value (WritableValue.)
+        wm (WritableMap.)
+        ]
     (.setWeights sashForm (int-array [1 2] ))
     (.setLayout listContainer (GridLayout. 1 true))
     (.setLayout editContainer (GridLayout. 2 false))
