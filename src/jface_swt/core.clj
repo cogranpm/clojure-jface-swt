@@ -60,19 +60,27 @@
 ;;function to make a child composite widget
 (defn make-child-composite
   [parent]
-;;  (reset! widgets {:fred "someval"})
-;;  (println (:fred @widgets))
-;;  (swap! widgets conj {:simon "ickbah"})
-;;  (println @widgets)
-  (let [container (proxy [Composite] [parent SWT/BORDER])]
-    (let [label (Label. container SWT/BORDER) txtTest (Text. container SWT/NONE)]
-      (.setText label "I am a composite")
-      (.setText txtTest "some text"))
+  ;;  (reset! widgets {:fred "someval"})
+  ;;  (println (:fred @widgets))
+  ;;  (swap! widgets conj {:simon "ickbah"})
+  ;;  (println @widgets)
+  (let [container (proxy [Composite] [parent SWT/BORDER])
+        sashForm (SashForm. container SWT/HORIZONTAL)
+        listContainer (Composite. sashForm SWT/NONE)
+        editContainer (Composite. sashForm SWT/NONE)
+        label (Label. editContainer SWT/BORDER)
+        txtTest (Text. editContainer SWT/NONE)]
+    (.setWeights sashForm (int-array [1 2] ))
+    (.setLayout listContainer (FillLayout. SWT/VERTICAL))
+    (.setLayout editContainer (FillLayout. SWT/VERTICAL))
+    (.setText label "First Name")
+    (.setText txtTest "some text")
     (.setLayout container (FillLayout. SWT/VERTICAL))
     (.layout container)
     container
     )
   )
+
 
 
 ;; must create a proxy  for jface application window to override important hook methods
