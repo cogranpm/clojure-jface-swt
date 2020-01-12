@@ -72,6 +72,7 @@
         label (Label. editContainer SWT/BORDER)
         txtTest (Text. editContainer SWT/NONE)
         lblError (Label. editContainer SWT/NONE)
+        btnSave (Button. editContainer SWT/PUSH)
         dbc (DataBindingContext.)
         value (WritableValue.)
         wm (WritableMap.)
@@ -81,6 +82,18 @@
     (.setLayout editContainer (GridLayout. 2 false))
     (.setText label "First Name")
     (.setText txtTest "some text")
+    (.setText btnSave "Save")
+    ;; test save print value of the writable map
+    (.addSelectionListener
+     btnSave
+     ;; using a proxy to implement anonymous inner class
+     ;; inheriting from SelectionAdapter and overriding the widgetSelected method
+     (proxy [SelectionAdapter] []
+       (widgetSelected [event]
+         (println (.get wm "fname"))
+         )
+       )
+     )
     (.applyTo (GridDataFactory/fillDefaults) label)
     (.applyTo (.grab (GridDataFactory/fillDefaults) true false) txtTest)
     (.put wm "fname" "wayne")
@@ -166,17 +179,20 @@
 (defn -main
   "example of a jface-swt stand alone application in clojure"
   [& args]
-  (let [dapRunner (reify java.lang.Runnable
-    (run [this]
-      (.info main-entity "hello world")
-      (. my-app-window setBlockOnOpen true)
-      (. my-app-window addMenuBar)
-      (. my-app-window addStatusLine)
-      (. my-app-window addToolBar (bit-or (. SWT FLAT) (. SWT WRAP)))
-      (. my-app-window open)
-      (. default-display (dispose))
-      ))]
+  (let [myRunner (reify java.lang.Runnable
+                   (run [this]
+                     (try
+                       (.info main-entity "hello world")
+                       (. my-app-window setBlockOnOpen true)
+                       (. my-app-window addMenuBar)
+                       (. my-app-window addStatusLine)
+                       (. my-app-window addToolBar (bit-or (. SWT FLAT) (. SWT WRAP)))
+                       (. my-app-window open)
+                       (. default-display (dispose))
+                     (catch java.lang.Exception e
+                       (.printStackTrace e)))
+                     ))]
 
-    (Realm/runWithDefault (DisplayRealm/getRealm (Display/getDefault)) dapRunner )
+    (Realm/runWithDefault (DisplayRealm/getRealm (Display/getDefault)) myRunner )
     )
   )
