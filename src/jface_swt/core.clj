@@ -8,7 +8,8 @@
   (:import (org.eclipse.core.databinding Binding DataBindingContext UpdateValueStrategy AggregateValidationStatus))
   (:import (org.eclipse.core.databinding.beans.typed BeanProperties))
   (:import (org.eclipse.core.databinding.conversion IConverter))
-  (:import (org.eclipse.core.databinding.observable ChangeEvent IChangeListener))
+  (:import (org.eclipse.core.databinding.observable ChangeEvent IChangeListener Observables Realm))
+  (:import (org.eclipse.jface.databinding.swt DisplayRealm))
   (:import (org.eclipse.core.databinding.observable.list IObservableList WritableList))
   (:import (org.eclipse.core.databinding.observable.map IObservableMap WritableMap))
   (:import (org.eclipse.core.databinding.observable.set IObservableSet))
@@ -82,6 +83,10 @@
     (.setText txtTest "some text")
     (.applyTo (GridDataFactory/fillDefaults) label)
     (.applyTo (.grab (GridDataFactory/fillDefaults) true false) txtTest)
+    (.put wm "fname" "wayne")
+    (let [target (.observe (WidgetProperties/text SWT/Modify) txtTest)
+          model (Observables/observeMapEntry wm "fname" )]
+      (.bindValue dbc target model))
     (.setLayout container (FillLayout. SWT/VERTICAL))
     (.layout container)
     container
@@ -161,11 +166,17 @@
 (defn -main
   "example of a jface-swt stand alone application in clojure"
   [& args]
-  (.info main-entity "hello world")
-  (. my-app-window setBlockOnOpen true)
-  (. my-app-window addMenuBar)
-  (. my-app-window addStatusLine)
-  (. my-app-window addToolBar (bit-or (. SWT FLAT) (. SWT WRAP)))
-  (. my-app-window open)
-  (. default-display (dispose))
+  (let [dapRunner (reify java.lang.Runnable
+    (run [this]
+      (.info main-entity "hello world")
+      (. my-app-window setBlockOnOpen true)
+      (. my-app-window addMenuBar)
+      (. my-app-window addStatusLine)
+      (. my-app-window addToolBar (bit-or (. SWT FLAT) (. SWT WRAP)))
+      (. my-app-window open)
+      (. default-display (dispose))
+      ))]
+
+    (Realm/runWithDefault (DisplayRealm/getRealm (Display/getDefault)) dapRunner )
+    )
   )
