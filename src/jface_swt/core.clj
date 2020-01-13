@@ -122,7 +122,7 @@
     (.setLinesVisible listTable true)
     (.setLayout listContainer tableLayout)
     (getColumn "First Name" listView tableLayout)
-    (.setContentProvider listView content-provider)
+    ;;(.setContentProvider listView content-provider)
     ;;(addListBindings listView wm)
     
     (.setText label "First Name")
