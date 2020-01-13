@@ -21,7 +21,7 @@
   (:import (org.eclipse.jface.databinding.viewers IViewerObservableValue ObservableListContentProvider ObservableMapLabelProvider))
   (:import (org.eclipse.jface.databinding.viewers.typed ViewerProperties))
   (:import (org.eclipse.jface.layout GridDataFactory TableColumnLayout))
-  (:import (org.eclipse.jface.viewers ArrayContentProvider ComboViewer ILabelProvider ISelectionChangedListener IStructuredSelection LabelProvider SelectionChangedEvent TableViewer TableViewerColumn))
+  (:import (org.eclipse.jface.viewers ArrayContentProvider ComboViewer ILabelProvider ISelectionChangedListener IStructuredSelection LabelProvider SelectionChangedEvent TableViewer TableViewerColumn ColumnWeightData))
   (:import (org.eclipse.swt.custom SashForm))
   (:import (org.eclipse.swt.events SelectionAdapter SelectionEvent))
   (:import (org.eclipse.jface.action IAction Action ToolBarManager StatusLineManager MenuManager Separator))
@@ -58,6 +58,20 @@
     ))
 
 
+(defn getColumn
+  [caption viewer layout]
+  (let [column (TableViewerColumn. viewer SWT/LEFT)
+        col (.getColumn column)]
+    (.setText col caption)
+    (.setResizable col false)
+    (.setMoveable col false)
+    (.setColumnData layout col (ColumnWeightData. 100))
+    column
+    )
+  
+  )
+
+
 ;;function to make a child composite widget
 (defn make-child-composite
   [parent]
@@ -69,6 +83,9 @@
         sashForm (SashForm. container SWT/HORIZONTAL)
         listContainer (Composite. sashForm SWT/NONE)
         editContainer (Composite. sashForm SWT/NONE)
+        listView (TableViewer. listContainer SWT/NONE)
+        listTable (.getTable listView)
+        tableLayout (TableColumnLayout.)
         label (Label. editContainer SWT/BORDER)
         txtTest (Text. editContainer SWT/NONE)
         lblError (Label. editContainer SWT/NONE)
@@ -80,6 +97,10 @@
     (.setWeights sashForm (int-array [1 2] ))
     (.setLayout listContainer (GridLayout. 1 true))
     (.setLayout editContainer (GridLayout. 2 false))
+    (.setHeaderVisible listTable true)
+    (.setLinesVisible listTable true)
+    (.setLayout listContainer tableLayout)
+    (getColumn "First Name" listView tableLayout)
     (.setText label "First Name")
     (.setText txtTest "some text")
     (.setText btnSave "Save")
@@ -179,19 +200,20 @@
 (defn -main
   "example of a jface-swt stand alone application in clojure"
   [& args]
-  (let [myRunner (reify java.lang.Runnable
-                   (run [this]
-                     (try
-                       (.info main-entity "hello world")
-                       (. my-app-window setBlockOnOpen true)
-                       (. my-app-window addMenuBar)
-                       (. my-app-window addStatusLine)
-                       (. my-app-window addToolBar (bit-or (. SWT FLAT) (. SWT WRAP)))
-                       (. my-app-window open)
-                       (. default-display (dispose))
-                     (catch java.lang.Exception e
-                       (.printStackTrace e)))
-                     ))]
+  (let [myRunner
+        (reify java.lang.Runnable
+          (run [this]
+            (try
+              (.info main-entity "hello world")
+              (. my-app-window setBlockOnOpen true)
+              (. my-app-window addMenuBar)
+              (. my-app-window addStatusLine)
+              (. my-app-window addToolBar (bit-or (. SWT FLAT) (. SWT WRAP)))
+              (. my-app-window open)
+              (. default-display (dispose))
+              (catch java.lang.Exception e
+                (.printStackTrace e)))
+            ))]
 
     (Realm/runWithDefault (DisplayRealm/getRealm (Display/getDefault)) myRunner )
     )
