@@ -11,14 +11,14 @@
   (:import (org.eclipse.core.databinding.observable ChangeEvent IChangeListener Observables Realm))
   (:import (org.eclipse.jface.databinding.swt DisplayRealm))
   (:import (org.eclipse.core.databinding.observable.list IObservableList WritableList))
-  (:import (org.eclipse.core.databinding.observable.map IObservableMap WritableMap))
+  (:import (org.eclipse.core.databinding.observable.map IObservableMap ObservableMap  WritableMap))
   (:import (org.eclipse.core.databinding.observable.set IObservableSet))
   (:import (org.eclipse.core.databinding.observable.value IObservableValue WritableValue))
   (:import (org.eclipse.core.databinding.validation IValidator ValidationStatus))
   (:import (org.eclipse.core.runtime IStatus))
   (:import (org.eclipse.jface.databinding.fieldassist ControlDecorationSupport))
   (:import (org.eclipse.jface.databinding.swt.typed WidgetProperties))
-  (:import (org.eclipse.jface.databinding.viewers IViewerObservableValue ObservableListContentProvider ObservableMapLabelProvider))
+  (:import (org.eclipse.jface.databinding.viewers IViewerObservableValue ObservableListContentProvider ObservableMapLabelProvider ViewerSupport))
   (:import (org.eclipse.jface.databinding.viewers.typed ViewerProperties))
   (:import (org.eclipse.jface.layout GridDataFactory TableColumnLayout))
   (:import (org.eclipse.jface.viewers ArrayContentProvider ComboViewer ILabelProvider ISelectionChangedListener IStructuredSelection LabelProvider SelectionChangedEvent TableViewer TableViewerColumn ColumnWeightData))
@@ -33,6 +33,8 @@
 (def widgets (atom {}))
 
 (def image-registry (atom nil))
+
+(def content-provider (ObservableListContentProvider.))
 
 (defprotocol Entity
 
@@ -71,6 +73,24 @@
   
   )
 
+(defn addListBindings
+  [viewer wm]
+  (let [knownElements (.getKnownElements content-provider)
+        ;;fname (Observables/observeMapEntry wm "fname")
+        ;;fname (.observeDetail (BeanProperties/value "fname") knownElements)
+        ;;labelMaps (into-array IObservableMap [fname])
+        ;;labelMaps (into-array ObservableMap [fname])
+        ]
+    (proxy [ObservableMapLabelProvider] [wm]
+      (getText [element index]
+        (println element)
+        "wannamingo"
+        )
+      )
+    )
+
+  )
+
 
 ;;function to make a child composite widget
 (defn make-child-composite
@@ -93,6 +113,7 @@
         dbc (DataBindingContext.)
         value (WritableValue.)
         wm (WritableMap.)
+        wl (WritableList.)
         ]
     (.setWeights sashForm (int-array [1 2] ))
     (.setLayout listContainer (GridLayout. 1 true))
@@ -101,6 +122,9 @@
     (.setLinesVisible listTable true)
     (.setLayout listContainer tableLayout)
     (getColumn "First Name" listView tableLayout)
+    (.setContentProvider listView content-provider)
+    ;;(addListBindings listView wm)
+    
     (.setText label "First Name")
     (.setText txtTest "some text")
     (.setText btnSave "Save")
@@ -118,6 +142,9 @@
     (.applyTo (GridDataFactory/fillDefaults) label)
     (.applyTo (.grab (GridDataFactory/fillDefaults) true false) txtTest)
     (.put wm "fname" "wayne")
+    (.add wl wm)
+    ;;(.setInput listView wl)
+    (ViewerSupport/bind listView wl (BeanProperties/values (into-array String ["fname"])))
     (let [target (.observe (WidgetProperties/text SWT/Modify) txtTest)
           model (Observables/observeMapEntry wm "fname" )]
       (.bindValue dbc target model))
