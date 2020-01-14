@@ -7,6 +7,8 @@
   (:import (org.eclipse.swt SWT))
   (:import (org.eclipse.core.databinding Binding DataBindingContext UpdateValueStrategy AggregateValidationStatus))
   (:import (org.eclipse.core.databinding.beans.typed BeanProperties))
+  (:import (org.eclipse.core.databinding.property.map IMapProperty))
+  (:import (org.eclipse.core.databinding.property Properties))
   (:import (org.eclipse.core.databinding.conversion IConverter))
   (:import (org.eclipse.core.databinding.observable ChangeEvent IChangeListener Observables Realm))
   (:import (org.eclipse.jface.databinding.swt DisplayRealm))
@@ -34,7 +36,7 @@
 
 (def image-registry (atom nil))
 
-(def content-provider (ObservableListContentProvider.))
+;;(def content-provider (ObservableListContentProvider.))
 
 (defprotocol Entity
 
@@ -74,10 +76,10 @@
   )
 
 (defn addListBindings
-  [viewer wm]
+  [viewer wm content-provider]
   (let [knownElements (.getKnownElements content-provider)
         ;;fname (Observables/observeMapEntry wm "fname")
-        ;;fname (.observeDetail (BeanProperties/value "fname") knownElements)
+        ;;fname (.observeDetail (IMapProperty/value "fname") knownElements)
         ;;labelMaps (into-array IObservableMap [fname])
         ;;labelMaps (into-array ObservableMap [fname])
         ]
@@ -114,6 +116,7 @@
         value (WritableValue.)
         wm (WritableMap.)
         wl (WritableList.)
+        content-provider (ObservableListContentProvider.)
         ]
     (.setWeights sashForm (int-array [1 2] ))
     (.setLayout listContainer (GridLayout. 1 true))
@@ -123,7 +126,7 @@
     (.setLayout listContainer tableLayout)
     (getColumn "First Name" listView tableLayout)
     ;;(.setContentProvider listView content-provider)
-    ;;(addListBindings listView wm)
+    ;;(addListBindings listView wm )
     
     (.setText label "First Name")
     (.setText txtTest "some text")
@@ -143,8 +146,10 @@
     (.applyTo (.grab (GridDataFactory/fillDefaults) true false) txtTest)
     (.put wm "fname" "wayne")
     (.add wl wm)
+    ;;(.setContentProvider listView content-provider)
     ;;(.setInput listView wl)
-    (ViewerSupport/bind listView wl (BeanProperties/values (into-array String ["fname"])))
+    ;;(ViewerSupport/bind listView wl (Properties/observableValue (into-array String ["fname"])))
+    (ViewerSupport/bind listView wl (Properties/selfMap nil nil))
     (let [target (.observe (WidgetProperties/text SWT/Modify) txtTest)
           model (Observables/observeMapEntry wm "fname" )]
       (.bindValue dbc target model))
