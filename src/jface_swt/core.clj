@@ -148,8 +148,8 @@
     (.add wl wm)
     ;;(.setContentProvider listView content-provider)
     ;;(.setInput listView wl)
-    ;;(ViewerSupport/bind listView wl (Properties/observableValue (into-array String ["fname"])))
-    (ViewerSupport/bind listView wl (Properties/selfMap nil nil))
+    (ViewerSupport/bind listView wl (Properties/selfValue (into-array String ["fname"])))
+    ;;(ViewerSupport/bind listView wl (Properties/selfMap nil nil))
     (let [target (.observe (WidgetProperties/text SWT/Modify) txtTest)
           model (Observables/observeMapEntry wm "fname" )]
       (.bindValue dbc target model))
