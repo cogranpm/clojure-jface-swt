@@ -80,18 +80,23 @@
   (let [knownElements (.getKnownElements content-provider)
         ;;fname (Observables/observeMapEntry wm "fname")
         ;;fname (.observeDetail (IMapProperty/value "fname") knownElements)
-        ;;labelMaps (into-array IObservableMap [fname])
+        fname (.observeDetail (Properties/selfValue "fname" ) knownElements)
+        labelMaps (into-array IObservableMap [fname])
         ;;labelMaps (into-array ObservableMap [fname])
-        ]
-    (proxy [ObservableMapLabelProvider] [wm]
-      (getText [element index]
-        (println element)
+    
+        label-provider (proxy [ObservableMapLabelProvider] [labelMaps]
+        (getText [element index]
+          (println "in the label provider")
+          ;; change this to be based on the index of the map
         "wannamingo"
+          )
         )
-      )
-    )
+        ]
+    (.setContentProvider viewer content-provider)
+    (.setLabelProvider viewer label-provider)
+    (.setInput viewer wm)
+    ))
 
-  )
 
 
 ;;function to make a child composite widget
@@ -126,7 +131,7 @@
     (.setLayout listContainer tableLayout)
     (getColumn "First Name" listView tableLayout)
     ;;(.setContentProvider listView content-provider)
-    ;;(addListBindings listView wm )
+    (addListBindings listView wm content-provider)
     
     (.setText label "First Name")
     (.setText txtTest "some text")
@@ -146,10 +151,10 @@
     (.applyTo (.grab (GridDataFactory/fillDefaults) true false) txtTest)
     (.put wm "fname" "wayne")
     (.add wl wm)
-    ;;(.setContentProvider listView content-provider)
-    ;;(.setInput listView wl)
-    (ViewerSupport/bind listView wl (Properties/selfValue (into-array String ["fname"])))
-    ;;(ViewerSupport/bind listView wl (Properties/selfMap nil nil))
+    
+    
+    ;;(ViewerSupport/bind listView wl (Properties/selfValue (into-array String ["fname"])))
+    
     (let [target (.observe (WidgetProperties/text SWT/Modify) txtTest)
           model (Observables/observeMapEntry wm "fname" )]
       (.bindValue dbc target model))
