@@ -76,11 +76,16 @@
   )
 
 (defn addListBindings
-  [viewer wm content-provider]
+  [viewer wm wl content-provider]
   (let [knownElements (.getKnownElements content-provider)
         ;;fname (Observables/observeMapEntry wm "fname")
         ;;fname (.observeDetail (IMapProperty/value "fname") knownElements)
-        fname (.observeDetail (Properties/selfValue "fname" ) knownElements)
+        ;;fname (.observeDetail (Properties/selfMap wm "fname" ) knownElements)
+        ;;labelMaps (Properties/observeEach knownElements (into-array String ["fname"]))
+        ;;labelMaps (Properties/observeEach knownElements (Properties/selfMap wm (into-array String ["fname"])))
+
+
+        fname (.observeDetail (Observables/observeMapEntry wm "fname") knownElements)
         labelMaps (into-array IObservableMap [fname])
         ;;labelMaps (into-array ObservableMap [fname])
     
@@ -94,7 +99,7 @@
         ]
     (.setContentProvider viewer content-provider)
     (.setLabelProvider viewer label-provider)
-    (.setInput viewer wm)
+    (.setInput viewer wl)
     ))
 
 
@@ -131,7 +136,7 @@
     (.setLayout listContainer tableLayout)
     (getColumn "First Name" listView tableLayout)
     ;;(.setContentProvider listView content-provider)
-    (addListBindings listView wm content-provider)
+    (addListBindings listView wm wl content-provider)
     
     (.setText label "First Name")
     (.setText txtTest "some text")
@@ -152,7 +157,7 @@
     (.put wm "fname" "wayne")
     (.add wl wm)
     
-    
+    ;;(ViewerSupport/bind listView wl (Properties/selfMap wm "fname"))
     ;;(ViewerSupport/bind listView wl (Properties/selfValue (into-array String ["fname"])))
     
     (let [target (.observe (WidgetProperties/text SWT/Modify) txtTest)
