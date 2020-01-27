@@ -62,9 +62,17 @@
   )
 
 
+;; note, need to get rid of txtTest argument and make it a namespace level var
+;; when figured out how to handle widgets
 (defn make-data-bindings
   [amap txtTest]
   (.dispose dbc)
+  (let [bindings (.getValidationStatusProviders dbc)]
+    ;; need to get rid of each of the bindings
+    (doseq [element bindings]
+       (.removeBinding dbc (cast Binding element))
+      )
+    )
   (let [target (.observe (WidgetProperties/text SWT/Modify) txtTest)
         model (Observables/observeMapEntry amap "fname" )]
     (.bindValue dbc target model))
@@ -158,7 +166,7 @@
      listView
      (proxy
          [ISelectionChangedListener]
-         []
+          []
        (selectionChanged [e]
          (let [selection (.getStructuredSelection listView)
                selected-item (.getFirstElement selection)
