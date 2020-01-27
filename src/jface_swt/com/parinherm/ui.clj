@@ -35,9 +35,18 @@
 
 
 (def app-name "Kernai")
+(def realm (DisplayRealm/getRealm (Display/getDefault)))
 (def widgets (atom {}))
 (def image-registry (atom nil))
+(def dbc (DataBindingContext.  realm))
+(def wl (WritableList. realm))
+(def wm (WritableMap. realm))
+(def wm2 (WritableMap. realm))
 
+;;(def txtFirstName (atom nil))
+
+
+(def content-provider (ObservableListContentProvider.))
 (def menu-manager
   (new MenuManager "menu"))
 
@@ -49,6 +58,15 @@
       (.close my-app-window))
     ))
 
+
+(defn make-data-bindings
+  [amap txtTest]
+  
+  (let [target (.observe (WidgetProperties/text SWT/Modify) txtTest)
+        model (Observables/observeMapEntry amap "fname" )]
+    (.bindValue dbc target model))
+
+  )
 
 (defn getColumn
   [caption viewer layout]
@@ -120,33 +138,58 @@
         listView (TableViewer. listContainer SWT/NONE)
         listTable (.getTable listView)
         tableLayout (TableColumnLayout.)
-        label (Label. editContainer SWT/BORDER)
-        txtTest (Text. editContainer SWT/NONE)
+        lblFirstName (Label. editContainer SWT/BORDER)
+        txtFirstName (Text. editContainer SWT/NONE)
         lblError (Label. editContainer SWT/NONE)
         btnSave (Button. editContainer SWT/PUSH)
-        dbc (DataBindingContext.)
         value (WritableValue.)
-        wm (WritableMap.)
-        wm2 (WritableMap.)
-        wl (WritableList.)
-        content-provider (ObservableListContentProvider.)
+
         ]
+
+
+
     (.setWeights sashForm (int-array [1 2] ))
     (.setLayout listContainer (GridLayout. 1 true))
     (.setLayout editContainer (GridLayout. 2 false))
     (.setHeaderVisible listTable true)
     (.setLinesVisible listTable true)
     (.setLayout listContainer tableLayout)
+
+    (.addSelectionChangedListener listView
+                                  (proxy [ISelectionChangedListener] []
+                                    (selectionChanged [e]
+                                      (let [selection (.getStructuredSelection listView)
+                                            selected-item (.getFirstElement selection)
+                                            ]
+                                        (make-data-bindings selected-item txtFirstName)
+                                        )
+                                      
+                                      )
+
+                                    )
+                                  )
+
+
     (getColumn "First Name" listView tableLayout)
     (.setContentProvider listView content-provider)
+    (.put wm "fname" "wayne")
+    (.add wl wm)
+    ;;dynamically add a second, say as you would from a database
+    (.put wm2 "fname" "Belvedere")
+    (.add wl wm2)
+    ;; take this out depending on method used
+    (.setInput listView wl)
+    ;;(ViewerSupport/bind listView wl (Properties/selfMap wm "fname"))
+    ;;(ViewerSupport/bind listView wl (Properties/selfValue (into-array String ["fname"])))
+    ;;(ViewerSupport/bind listView wl (Observables/observeMapEntry wm "fname"))
 
 
     ;;don't know how to get the observable list stuff working
     ;;in getColumn will temporarily set up a ColumnLabelProvider
     ;;(addListBindings listView wm wl content-provider)
     
-    (.setText label "First Name")
-    (.setText txtTest "some text")
+    (.setText lblFirstName "First Name")
+    (.setText txtFirstName "some text")
     (.setText btnSave "Save")
     ;; test save print value of the writable map
     (.addSelectionListener
@@ -155,27 +198,14 @@
      ;; inheriting from SelectionAdapter and overriding the widgetSelected method
      (proxy [SelectionAdapter] []
        (widgetSelected [event]
+         ;; this proves that value was updated in the model
          (println (.get wm "fname"))
          )
        )
      )
-    (.applyTo (GridDataFactory/fillDefaults) label)
-    (.applyTo (.grab (GridDataFactory/fillDefaults) true false) txtTest)
-    (.put wm "fname" "wayne")
-    (.add wl wm)
-    ;;dynamically add a second, say as you would from a database
-    (.put wm2 "fname" "Belvedere")
-    (.add wl wm2)
-    ;; take this out depending on method used
-    (.setInput listView wl)
+    (.applyTo (GridDataFactory/fillDefaults) lblFirstName)
+    (.applyTo (.grab (GridDataFactory/fillDefaults) true false) txtFirstName)
     
-    ;;(ViewerSupport/bind listView wl (Properties/selfMap wm "fname"))
-    ;;(ViewerSupport/bind listView wl (Properties/selfValue (into-array String ["fname"])))
-    ;;(ViewerSupport/bind listView wl (Observables/observeMapEntry wm "fname"))
-    
-    (let [target (.observe (WidgetProperties/text SWT/Modify) txtTest)
-          model (Observables/observeMapEntry wm "fname" )]
-      (.bindValue dbc target model))
     (.setLayout container (FillLayout. SWT/VERTICAL))
     (.layout container)
     container
