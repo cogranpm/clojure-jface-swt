@@ -41,11 +41,7 @@
 (def dbc (DataBindingContext.  realm))
 (def wl (WritableList. realm))
 (def wm (WritableMap. realm))
-(def wm2 (WritableMap. realm))
-
 ;;(def txtFirstName (atom nil))
-
-
 (def content-provider (ObservableListContentProvider.))
 (def menu-manager
   (new MenuManager "menu"))
@@ -59,9 +55,16 @@
     ))
 
 
+(defn make-domain-item
+  "function that makes a writable map entry of whatever we are dealing with as the domain model entity"
+  [first-name]
+  (doto (WritableMap. ) (.put "fname" first-name))
+  )
+
+
 (defn make-data-bindings
   [amap txtTest]
-  
+  (.dispose dbc)
   (let [target (.observe (WidgetProperties/text SWT/Modify) txtTest)
         model (Observables/observeMapEntry amap "fname" )]
     (.bindValue dbc target model))
@@ -143,11 +146,7 @@
         lblError (Label. editContainer SWT/NONE)
         btnSave (Button. editContainer SWT/PUSH)
         value (WritableValue.)
-
         ]
-
-
-
     (.setWeights sashForm (int-array [1 2] ))
     (.setLayout listContainer (GridLayout. 1 true))
     (.setLayout editContainer (GridLayout. 2 false))
@@ -155,19 +154,20 @@
     (.setLinesVisible listTable true)
     (.setLayout listContainer tableLayout)
 
-    (.addSelectionChangedListener listView
-                                  (proxy [ISelectionChangedListener] []
-                                    (selectionChanged [e]
-                                      (let [selection (.getStructuredSelection listView)
-                                            selected-item (.getFirstElement selection)
-                                            ]
-                                        (make-data-bindings selected-item txtFirstName)
-                                        )
-                                      
-                                      )
-
-                                    )
-                                  )
+    (.addSelectionChangedListener
+     listView
+     (proxy
+         [ISelectionChangedListener]
+         []
+       (selectionChanged [e]
+         (let [selection (.getStructuredSelection listView)
+               selected-item (.getFirstElement selection)
+               ]
+           (make-data-bindings selected-item txtFirstName)
+           )
+         )
+       )
+     )
 
 
     (getColumn "First Name" listView tableLayout)
@@ -175,8 +175,8 @@
     (.put wm "fname" "wayne")
     (.add wl wm)
     ;;dynamically add a second, say as you would from a database
-    (.put wm2 "fname" "Belvedere")
-    (.add wl wm2)
+    (.add wl (make-domain-item "Belconnen"))
+    (.add wl (make-domain-item "Bertrand"))
     ;; take this out depending on method used
     (.setInput listView wl)
     ;;(ViewerSupport/bind listView wl (Properties/selfMap wm "fname"))
