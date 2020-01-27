@@ -24,7 +24,7 @@
   (:import (org.eclipse.jface.databinding.viewers IViewerObservableValue ObservableListContentProvider ObservableMapLabelProvider ViewerSupport))
   (:import (org.eclipse.jface.databinding.viewers.typed ViewerProperties))
   (:import (org.eclipse.jface.layout GridDataFactory TableColumnLayout))
-  (:import (org.eclipse.jface.viewers ArrayContentProvider ComboViewer ILabelProvider ISelectionChangedListener IStructuredSelection LabelProvider SelectionChangedEvent TableViewer TableViewerColumn ColumnWeightData))
+  (:import (org.eclipse.jface.viewers ArrayContentProvider ComboViewer ILabelProvider ISelectionChangedListener IStructuredSelection LabelProvider SelectionChangedEvent TableViewer TableViewerColumn ColumnWeightData ColumnLabelProvider))
   (:import (org.eclipse.swt.custom SashForm))
   (:import (org.eclipse.swt.events SelectionAdapter SelectionEvent))
   (:import (org.eclipse.jface.action IAction Action ToolBarManager StatusLineManager MenuManager Separator))
@@ -53,12 +53,24 @@
 (defn getColumn
   [caption viewer layout]
   (let [column (TableViewerColumn. viewer SWT/LEFT)
-        col (.getColumn column)]
+        col (.getColumn column)
+        colProvider
+        (proxy [ColumnLabelProvider] [] 
+          (getText [element]
+            (.get element "fname")
+            )
+          
+          (getImage [element]
+            nil
+            )
+          )
+        ]
     (.setText col caption)
     (.setResizable col false)
     (.setMoveable col false)
     (.setColumnData layout col (ColumnWeightData. 100))
-    column
+    (.setLabelProvider column colProvider)
+     column
     )
   
   )
@@ -115,6 +127,7 @@
         dbc (DataBindingContext.)
         value (WritableValue.)
         wm (WritableMap.)
+        wm2 (WritableMap.)
         wl (WritableList.)
         content-provider (ObservableListContentProvider.)
         ]
@@ -125,8 +138,12 @@
     (.setLinesVisible listTable true)
     (.setLayout listContainer tableLayout)
     (getColumn "First Name" listView tableLayout)
-    ;;(.setContentProvider listView content-provider)
-    (addListBindings listView wm wl content-provider)
+    (.setContentProvider listView content-provider)
+
+
+    ;;don't know how to get the observable list stuff working
+    ;;in getColumn will temporarily set up a ColumnLabelProvider
+    ;;(addListBindings listView wm wl content-provider)
     
     (.setText label "First Name")
     (.setText txtTest "some text")
@@ -146,9 +163,15 @@
     (.applyTo (.grab (GridDataFactory/fillDefaults) true false) txtTest)
     (.put wm "fname" "wayne")
     (.add wl wm)
+    ;;dynamically add a second, say as you would from a database
+    (.put wm2 "fname" "Belvedere")
+    (.add wl wm2)
+    ;; take this out depending on method used
+    (.setInput listView wl)
     
     ;;(ViewerSupport/bind listView wl (Properties/selfMap wm "fname"))
     ;;(ViewerSupport/bind listView wl (Properties/selfValue (into-array String ["fname"])))
+    ;;(ViewerSupport/bind listView wl (Observables/observeMapEntry wm "fname"))
     
     (let [target (.observe (WidgetProperties/text SWT/Modify) txtTest)
           model (Observables/observeMapEntry wm "fname" )]
