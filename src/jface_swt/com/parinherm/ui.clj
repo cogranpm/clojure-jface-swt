@@ -98,6 +98,12 @@
     (.setResizable col false)
     (.setMoveable col false)
     (.setColumnData layout col (ColumnWeightData. 100))
+    ;; consider this new way that might be able to do observable on a map entry
+    ;; so entity data is simply a clojure map data structure
+    ;; code example follows:
+    ;; column.setLabelProvider(new ObservableMapCellLabelProvider(
+    ;; BeanProperties.value("firstname").observeDetail(cp.getKnownElements())
+    ;; )
     (.setLabelProvider column colProvider)
      column
     )
