@@ -257,7 +257,7 @@
 
     (configureShell [newShell]
       (proxy-super configureShell newShell)
-      (. newShell (setText "Kernai on Clojure"))
+      (. newShell (setText "Kernai on Clojure - test new change"))
 
       (reset! image-registry (ImageRegistry. ))
       (.put @image-registry "activity-big" (ImageDescriptor/createFromURL (->> "Activity_32x.png" io/resource)))
@@ -284,8 +284,9 @@
 
     (close []
       (proxy-super close)
-      (println "closing application"))
-
+      (println "closing application")
+      ;; don't forget to return a boolean
+      true)
     
     ))
 
