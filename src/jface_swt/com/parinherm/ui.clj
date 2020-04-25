@@ -194,6 +194,7 @@
     ;;dynamically add a second, say as you would from a database
     (.add wl (make-domain-item "Belconnen"))
     (.add wl (make-domain-item "Bertrand"))
+    (.add wl (make-domain-item "Ballyntine"))
     ;; take this out depending on method used
     (.setInput listView wl)
     ;;(ViewerSupport/bind listView wl (Properties/selfMap wm "fname"))
