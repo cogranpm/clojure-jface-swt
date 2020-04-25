@@ -110,6 +110,7 @@
   
   )
 
+;; can't figure out how to observe list based on a map
 (defn addListBindings
   [viewer wm wl content-provider]
   (let [knownElements (.getKnownElements content-provider)
@@ -142,6 +143,8 @@
 
 
 ;;function to make a child composite widget
+;; eventually move these out to individual files
+;; one for each child composite (view)
 (defn make-child-composite
   [parent]
   ;;  (reset! widgets {:fred "someval"})
