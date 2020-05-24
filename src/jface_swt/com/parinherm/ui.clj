@@ -39,6 +39,8 @@
 (def widgets (atom {}))
 (def image-registry (atom nil))
 (def dbc (DataBindingContext.  realm))
+
+
 (def wl (WritableList. realm))
 (def wm (WritableMap. realm))
 ;;(def txtFirstName (atom nil))
@@ -54,6 +56,40 @@
       (.close my-app-window))
     ))
 
+
+;; elmish wpf style docs
+;; define type for the model
+;; function that initializes the model ie init
+;; define messages that can change model, ie Increment, Decrement, SetStepSize
+;; define update function that takes a message and a model and returns updated model
+;; define bindings function that sets up all the bindings (jface ones in this case)
+
+
+;; world state represented by WritableMap
+(def world_state {:entity (WritableMap. realm) :entities (WritableList. realm) })
+
+;; return initial model state
+(defn init
+  []
+  {:entity (WritableMap. realm) :entities (WritableList. realm) }
+  )
+
+;; messages, what do we use here
+;; needs to be pattern matched in the update function
+
+
+;; update function, takes a message, old state and returns new state
+(defn update
+  [message model]
+  {:entity (WritableMap. realm) :entities (WritableList. realm) }
+  )
+
+;; bindings function run once
+(defn bindings
+  []
+  (println "run once"))
+
+;; end elmish wpf stuff
 
 (defn make-domain-item
   "function that makes a writable map entry of whatever we are dealing with as the domain model entity"
@@ -186,7 +222,7 @@
        )
      )
 
-
+ 
     (getColumn "First Name" listView tableLayout)
     (.setContentProvider listView content-provider)
     (.put wm "fname" "wayne")
