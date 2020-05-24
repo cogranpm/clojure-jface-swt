@@ -11,7 +11,7 @@
 (defprotocol Entity
   (info [this arg]))
 
-;; example of implementing a defprotocol
+;; example of implementing a defprotocolc
 (deftype Sample []
   Entity
   (info [this arg]
