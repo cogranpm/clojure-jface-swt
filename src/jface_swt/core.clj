@@ -6,9 +6,12 @@
   (:require [jface-swt.com.parinherm.ui :as ui])
   (:gen-class))
 
+;; this is just testng defprotocol
+;; a way to define an interface that will be implemented by a deftype
 (defprotocol Entity
   (info [this arg]))
 
+;; example of implementing a defprotocol
 (deftype Sample []
   Entity
   (info [this arg]
