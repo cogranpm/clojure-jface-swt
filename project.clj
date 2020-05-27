@@ -55,10 +55,12 @@
                    "lib/org.eclipse.jface.text_3.16.200.v20200218-0828.jar"
                    "lib/org.eclipse.jface_3.19.0.v20200218-1607.jar"
                    "lib/org.eclipse.osgi_3.15.200.v20200214-1600.jar"
-                   "lib/org.eclipse.swt.win32.win32.x86_64_3.114.0.v20200304-0601.jar"
+                   ;;"lib/org.eclipse.swt.win32.win32.x86_64_3.114.0.v20200304-0601.jar"
                    "lib/org.eclipse.swt_3.114.0.v20200304-0601.jar"
                    "lib/org.eclipse.text_3.10.100.v20200217-1239.jar"
                    "lib/org.eclipse.equinox.common_3.11.0.v20200206-0817.jar"
+                   ;; mac version
+                   "lib/org.eclipse.swt.cocoa.macosx.x86_64_3.110.0.v20190305-0602.jar"
                    ;;linux version
                    ;;"lib/org.eclipse.swt_3.111.0.v20190605-1801.jar"
                    ;;"lib/org.eclipse.swt.gtk.linux.x86_64_3.112.0.v20190904-0609.jar"
@@ -78,4 +80,5 @@
                    ]
   :main ^:skip-aot jface-swt.core
   :target-path "target/%s"
+  :jvm-opts ["-XstartOnFirstThread"] 
   :profiles {:uberjar {:aot :all}})
