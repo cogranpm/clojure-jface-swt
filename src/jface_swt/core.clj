@@ -3,7 +3,7 @@
   (:import (org.eclipse.swt.widgets Display Shell))
   (:import (org.eclipse.jface.databinding.swt DisplayRealm))
   (:import (org.eclipse.core.databinding.observable Realm))
-  (:require [jface-swt.com.parinherm.ui :as ui])
+  (:require [jface-swt.com.parinherm.mainview :as ui])
   (:gen-class))
 
 ;; this is just testng defprotocol
