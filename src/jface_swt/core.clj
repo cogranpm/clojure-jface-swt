@@ -28,12 +28,17 @@
         (reify java.lang.Runnable
           (run [this]
             (try
+              ;; just a test of the protocol defined in this file
               (.info main-entity "hello jface swt gui")
-              (. ui/my-app-window setBlockOnOpen true)
-              (. ui/my-app-window addMenuBar)
-              (. ui/my-app-window addStatusLine)
-              (. ui/my-app-window addToolBar (bit-or (. SWT FLAT) (. SWT WRAP)))
-              (. ui/my-app-window open)
+
+              ;; here starts the gui stuff
+              ;; set up the properties of the Application Window
+              ;; the stuff in the ui file all runs before this happens
+              (. ui/win setBlockOnOpen true)
+              (. ui/win addMenuBar)
+              (. ui/win addStatusLine)
+              (. ui/win addToolBar (bit-or (. SWT FLAT) (. SWT WRAP)))
+              (. ui/win open)
               (. ui/default-display (dispose))
               (catch java.lang.Exception e
                 (.printStackTrace e)))

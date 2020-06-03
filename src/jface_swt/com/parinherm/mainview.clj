@@ -46,12 +46,12 @@
 (def menu-manager
   (new MenuManager "menu"))
 
-(declare my-app-window)
+(declare win)
 
 (def quit-action
   (proxy [Action] ["&Quit"]
     (run []
-      (.close my-app-window))
+      (.close win))
     ))
 
 
@@ -122,7 +122,13 @@
   ;;  (reset! widgets {:fred "someval"})
   ;;  (println (:fred @widgets))
   ;;(swap! widgets conj {:simon "ickbah"})
-  
+
+  ;; all these widgets need to be local to this function
+  ;; as they require a parent argument and parent is
+  ;; not available until the parent window is shown
+  ;; so workaround is to keep a map in an atom and
+  ;; add the widgets to it with a key so it's possible to
+  ;; get the widget that way
   (let [container (proxy [Composite] [parent SWT/NONE])
         sashForm (SashForm. container SWT/HORIZONTAL)
         listContainer (Composite. sashForm SWT/NONE)
@@ -149,6 +155,8 @@
     (.setLayout listContainer tableLayout)
 
     ;; could this be more succint and use a lambda style
+    ;; answer, could use a macro or something to create proxy in background:
+
     (.addSelectionChangedListener
      listView
      (proxy
@@ -196,22 +204,22 @@
 
 
 ;; must create a proxy  for jface application window to override important hook methods
-(def my-app-window
+(def win
   (proxy
       [ApplicationWindow]
       [nil]
 
-    
     (createContents [parent]
       (let [container (Composite. parent SWT/NONE)]
-           (.setLayout container (FillLayout.))
-           (proxy-super setStatus  "howdy everyone")
-           (let [data-binding-view (make-child-composite container)]
-             (swap! widgets conj {:databind-example data-binding-view}))
-           (.layout container)
-           container)
+        (.setLayout container (FillLayout.))
+        (proxy-super setStatus  "howdy everyone")
+        (let [data-binding-view (make-child-composite container)]
+          (swap! widgets conj {:databind-example data-binding-view}))
+        (.layout container)
+        container)
       )
 
+    
     (getInitialSize []
       (let [disp (Display/getDefault)]
         (let [clientArea (.getClientArea disp)]
@@ -253,7 +261,7 @@
     
     ))
 
-    
+
 (def default-display
   (Display/getCurrent))
 

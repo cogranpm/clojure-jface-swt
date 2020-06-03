@@ -80,5 +80,6 @@
                    ]
   :main ^:skip-aot jface-swt.core
   :target-path "target/%s"
-  :jvm-opts ["-XstartOnFirstThread"] 
+  :jvm-opts ["-XstartOnFirstThread"]
+  :aliases {"dumbrepl" ["trampoline" "run" "-m" "clojure.main/main"]}
   :profiles {:uberjar {:aot :all}})
