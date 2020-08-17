@@ -2,8 +2,9 @@
                               ["os.arch" "os.name"])
       platform (apply format "%s (%s)" (vals properties))
       swt (case platform
-            "amd64 (Windows 10)" 'lib/org.eclipse.swt.win32.win32.x86_64_3.114.0.v20200304-0601.jar
-            "Linux (x86)"      '[org.eclipse/swt-gtk-linux-x86 "3.5.2"])
+            "amd64 (Windows 10)" "lib/org.eclipse.swt.win32.win32.x86_64_3.114.0.v20200304-0601.jar"
+            "Linux (x86)"      "lib/org.eclipse.swt.gtk.linux.x86_64_3.112.0.v20190904-0609.jar"
+            "")
       ]
 
 (defproject jface-swt "0.1.0-SNAPSHOT"
@@ -63,7 +64,8 @@
                    "lib/org.eclipse.jface.text_3.16.200.v20200218-0828.jar"
                    "lib/org.eclipse.jface_3.19.0.v20200218-1607.jar"
                    "lib/org.eclipse.osgi_3.15.200.v20200214-1600.jar"
-                   "lib/org.eclipse.swt.win32.win32.x86_64_3.114.0.v20200304-0601.jar"
+                   ;;"lib/org.eclipse.swt.win32.win32.x86_64_3.114.0.v20200304-0601.jar"
+                   ~swt
                    "lib/org.eclipse.swt_3.114.0.v20200304-0601.jar"
                    "lib/org.eclipse.text_3.10.100.v20200217-1239.jar"
                    "lib/org.eclipse.equinox.common_3.11.0.v20200206-0817.jar"
