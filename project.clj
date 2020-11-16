@@ -4,7 +4,12 @@
       swt (case platform
             "amd64 (Windows 10)" "lib/org.eclipse.swt.win32.win32.x86_64_3.114.0.v20200304-0601.jar"
             "Linux (x86)"      "lib/org.eclipse.swt.gtk.linux.x86_64_3.112.0.v20190904-0609.jar"
-            "")
+            "x86_64 (Mac OS X)" "lib/org.eclipse.swt.cocoa.macosx.x86_64_3.110.0.v20190305-0602.jar" )
+      jvmOpts (case platform
+                "amd64 (Windows 10)" (list) 
+                "Linux (x86)"     (list) 
+                "x86_64 (Mac OS X)" (list "-XstartOnFirstThread") 
+                )
       ]
 
 (defproject jface-swt "0.1.0-SNAPSHOT"
@@ -52,7 +57,6 @@
                               ;; You can also apply them to releases only:
                                :releases {:checksum :fail :update :always}}]]
   :resource-paths ["resources/images"
-                   ;;windows version
                    "lib/com.ibm.icu_64.2.0.v20190507-1337.jar"
                    "lib/org.eclipse.core.commands_3.9.700.v20191217-1850.jar"
                    "lib/org.eclipse.core.databinding.beans_1.6.100.v20191217-1850.jar"
@@ -64,32 +68,13 @@
                    "lib/org.eclipse.jface.text_3.16.200.v20200218-0828.jar"
                    "lib/org.eclipse.jface_3.19.0.v20200218-1607.jar"
                    "lib/org.eclipse.osgi_3.15.200.v20200214-1600.jar"
-                   ;;"lib/org.eclipse.swt.win32.win32.x86_64_3.114.0.v20200304-0601.jar"
                    ~swt
                    "lib/org.eclipse.swt_3.114.0.v20200304-0601.jar"
                    "lib/org.eclipse.text_3.10.100.v20200217-1239.jar"
                    "lib/org.eclipse.equinox.common_3.11.0.v20200206-0817.jar"
-                   ;; mac version
-                   ;;"lib/org.eclipse.swt.cocoa.macosx.x86_64_3.110.0.v20190305-0602.jar"
-                   ;;linux version
-                   ;;"lib/org.eclipse.swt_3.111.0.v20190605-1801.jar"
-                   ;;"lib/org.eclipse.swt.gtk.linux.x86_64_3.112.0.v20190904-0609.jar"
-                   ;; "lib/org.eclipse.jface_3.16.0.v20190528-0922.jar" 
-                   ;; "lib/org.eclipse.core.runtime_3.15.300.v20190508-0543.jar"
-                   ;; "lib/org.eclipse.osgi_3.14.0.v20190517-1309.jar"
-                   ;; "lib/org.eclipse.equinox.common_3.10.400.v20190516-1504.jar" 
-                   ;; "lib/org.eclipse.core.commands_3.9.400.v20190516-1358.jar"
-                   ;; "lib/com.ibm.icu_64.2.0.v20190507-1337.jar"
-                   ;; "lib/org.eclipse.core.databinding.beans_1.5.0.v20190510-1100.jar"
-                   ;; "lib/org.eclipse.core.databinding.observable_1.7.0.v20190515-0910.jar"
-                   ;; "lib/org.eclipse.core.databinding.property_1.7.0.v20190510-1100.jar"
-                   ;; "lib/org.eclipse.core.databinding_1.7.400.v20190513-2118.jar"
-                   ;; "lib/org.eclipse.jface.databinding_1.9.0.v20190519-0933.jar"
-                   ;; "lib/org.eclipse.jface.text_3.15.200.v20190519-2344.jar"
-                   ;; "lib/org.eclipse.text_3.8.200.v20190519-2344.jar"
                    ]
   :main ^:skip-aot jface-swt.core
   :target-path "target/%s"
-  ;;:jvm-opts ["-XstartOnFirstThread"]
+  :jvm-opts ~jvmOpts ;;["-XstartOnFirstThread"]
   :aliases {"dumbrepl" ["trampoline" "run" "-m" "clojure.main/main"]}
   :profiles {:uberjar {:aot :all}}))
