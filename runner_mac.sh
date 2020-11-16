@@ -1,0 +1,1 @@
+java -cp "${CLASSPATH}:/Users/paulm/Documents/Projects/clojure/clojure-jface-swt/lib/*:/Users/paulm/Documents/Projects/clojure/clojure-jface-swt/target/uberjar/jface-swt-0.1.0-SNAPSHOT-standalone.jar" jface_swt.core
