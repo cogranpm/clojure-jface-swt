@@ -29,7 +29,7 @@
           (run [this]
             (try
               ;; just a test of the protocol defined in this file
-              (.info main-entity "hello jface swt gui")
+              (.info main-entity "hello jface swt gui, here")
 
               ;; here starts the gui stuff
               ;; set up the properties of the Application Window

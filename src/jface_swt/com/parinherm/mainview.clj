@@ -212,7 +212,7 @@
     (createContents [parent]
       (let [container (Composite. parent SWT/NONE)]
         (.setLayout container (FillLayout.))
-        (proxy-super setStatus  "howdy everyone")
+        (proxy-super setStatus  "jface in clojure")
         (let [data-binding-view (make-child-composite container)]
           (swap! widgets conj {:databind-example data-binding-view}))
         (.layout container)
