@@ -34,7 +34,7 @@
   (:gen-class))
 
 
-;; how about defining some of the entities we need
+;; this is literally a form we show in a tab on the main window 
 (defrecord Form [fields
                  root
                  sash_form
@@ -49,10 +49,28 @@
                  form_widgets
                  dbc
                  ])
-;; vector of fields [fielddef]
-;; composite - the root
-;; sashForm
-;; listContainer - composite
+
+(defrecord FieldDef [
+                     name
+                     title
+                     required
+                     size_hint
+                     data_type
+                     lookup_key
+                     ])
+
+
+(defn make-form
+  [parent]
+  (let [root (Composite. parent SWT/NONE)]
+  (map->Form {:fields []
+              :root root 
+              :sashForm nil 
+              :list_container nil
+              })
+  )
+
+  )
 
 
 (def app-name "Kernai")
