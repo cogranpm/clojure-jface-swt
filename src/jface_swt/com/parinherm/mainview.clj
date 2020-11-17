@@ -33,6 +33,28 @@
 
   (:gen-class))
 
+
+;; how about defining some of the entities we need
+(defrecord Form [fields
+                 root
+                 sash_form
+                 list_container
+                 table_layout
+                 list_view
+                 columns
+                 content_provider
+                 forms_container
+                 lbl_errors
+                 child_forms_container
+                 form_widgets
+                 dbc
+                 ])
+;; vector of fields [fielddef]
+;; composite - the root
+;; sashForm
+;; listContainer - composite
+
+
 (def app-name "Kernai")
 (def realm (DisplayRealm/getRealm (Display/getDefault)))
 (def widgets (atom {}))
