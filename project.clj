@@ -2,12 +2,15 @@
                               ["os.arch" "os.name"])
       platform (apply format "%s (%s)" (vals properties))
       swt (case platform
-            ;;"amd64 (Windows 10)" "lib/org.eclipse.swt.win32.win32.x86_64_3.114.0.v20200304-0601.jar"
-            ;;"amd64 (Linux)"      "lib/org.eclipse.swt.gtk.linux.x86_64_3.112.0.v20190904-0609.jar"
-            ;;"x86_64 (Mac OS X)" "lib/org.eclipse.swt.cocoa.macosx.x86_64_3.110.0.v20190305-0602.jar" )
-            "amd64 (Windows 10)" org.eclipse.platform/org.eclipse.swt.win32.win32.x86_64 "3.110.0"
-            "amd64 (Linux)"      org.eclipse.platform/org.eclipse.swt.gtk.linux.x86_64 "3.110.0"
-            "x86_64 (Mac OS X)" org.eclipse.platform/org.eclipse.swt.cocoa.macosx.x86_64 "3.110.0" )
+            "amd64 (Windows 10)" [org.eclipse.platform/org.eclipse.swt.win32.win32.x86_64 "3.110.0"]
+            "amd64 (Linux)"      [org.eclipse.platform/org.eclipse.swt.gtk.linux.x86_64 "3.110.0"] 
+            "x86_64 (Mac OS X)" [org.eclipse.platform/org.eclipse.swt.cocoa.macosx.x86_64 "3.110.0"] )
+
+      ;;"amd64 (Windows 10)" "lib/org.eclipse.swt.win32.win32.x86_64_3.114.0.v20200304-0601.jar"
+      ;;"amd64 (Linux)"      "lib/org.eclipse.swt.gtk.linux.x86_64_3.112.0.v20190904-0609.jar"
+      ;;"x86_64 (Mac OS X)" "lib/org.eclipse.swt.cocoa.macosx.x86_64_3.110.0.v20190305-0602.jar" )
+
+
 
       jvmOpts (case platform
                 "amd64 (Windows 10)" (list) 
@@ -27,10 +30,9 @@
 
                  [org.clojars.nakkaya/miglayout "3.7.3.1"]
 
-                 [~swt]
+                 ;;[~swt "3.110.0" ]
 
-                 [org.eclipse.platform/org.eclipse.swt "3.114.100"]
-
+                 
                  [org.eclipse.platform/org.eclipse.core.runtime "3.19.0"
                   :exclusions
                   [
@@ -137,6 +139,12 @@
                    ]
                   ]
                  ]
+
+  :managed-dependencies [
+                         [org.eclipse.platform/org.eclipse.swt "3.114.100"]
+                         ~swt
+                         ]
+
   :repositories [["java.net" "https://download.java.net/maven/2"]
                   ["sonatype" {:url "https://oss.sonatype.org/content/repositories/releases"
                               ;; If a repository contains releases only setting
@@ -154,6 +162,7 @@
                               ;; You can also apply them to releases only:
                                :releases {:checksum :fail :update :always}}]]
   :resource-paths ["resources/images"
+                   ;;~swt
                    ;;"lib/com.ibm.icu_64.2.0.v20190507-1337.jar"
                    ;;"lib/org.eclipse.core.commands_3.9.700.v20191217-1850.jar"
                    ;;"lib/org.eclipse.core.databinding.beans_1.6.100.v20191217-1850.jar"
@@ -165,7 +174,6 @@
                    ;;"lib/org.eclipse.jface.text_3.16.200.v20200218-0828.jar"
                    ;;"lib/org.eclipse.jface_3.19.0.v20200218-1607.jar"
                    ;;"lib/org.eclipse.osgi_3.15.200.v20200214-1600.jar"
-                   ;;~swt
                    ;;"lib/org.eclipse.swt_3.114.0.v20200304-0601.jar"
                    ;;"lib/org.eclipse.text_3.10.100.v20200217-1239.jar"
                    ;;"lib/org.eclipse.equinox.common_3.11.0.v20200206-0817.jar"
