@@ -3,11 +3,11 @@
       platform (apply format "%s (%s)" (vals properties))
       swt (case platform
             "amd64 (Windows 10)" "lib/org.eclipse.swt.win32.win32.x86_64_3.114.0.v20200304-0601.jar"
-            "Linux (x86)"      "lib/org.eclipse.swt.gtk.linux.x86_64_3.112.0.v20190904-0609.jar"
+            "amd64 (Linux)"      "lib/org.eclipse.swt.gtk.linux.x86_64_3.112.0.v20190904-0609.jar"
             "x86_64 (Mac OS X)" "lib/org.eclipse.swt.cocoa.macosx.x86_64_3.110.0.v20190305-0602.jar" )
       jvmOpts (case platform
                 "amd64 (Windows 10)" (list) 
-                "Linux (x86)"     (list) 
+                "amd64 (Linux)" (list)
                 "x86_64 (Mac OS X)" (list "-XstartOnFirstThread") 
                 )
       ]
