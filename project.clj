@@ -143,6 +143,7 @@
   :managed-dependencies [
                          [org.eclipse.platform/org.eclipse.swt "3.114.100"]
                          [org.eclipse.platform/org.eclipse.core.runtime "3.19.0"]
+                         ;;[org.eclipse.platform/org.eclipse.core.commands "3.9.700"]
                          ;; ~swt
                          ]
 
