@@ -33,22 +33,6 @@
                  ;;[~swt "3.110.0" ]
 
                  
-                 ;; [org.eclipse.platform/org.eclipse.core.runtime "3.19.0"
-                 ;;  :exclusions
-                 ;;  [
-                 ;;   org.eclipse.platform/org.eclipse.equinox.common
-                 ;;   org.eclipse.platform/org.eclipse.equinox.registry
-                 ;;   org.eclipse.platform/org.eclipse.osgi
-                 ;;   org.eclipse.platform/org.eclipse.equinox.app
-                 ;;   org.eclipse.platform/org.eclipse.equinox.preferences
-                 ;;   org.eclipse.platform/org.eclipse.core.contenttype
-                 ;;   org.eclipse.platform/org.eclipse.core.jobs
-                 ;;   org.eclipse.platform/org.eclipse.core.runtime
-                 ;;   org.eclipse.platform/org.eclipse.core.commands
-
-                 ;;   ]
-                 ;;  ]
-
                  [org.eclipse.platform/org.eclipse.core.commands "3.9.700"
                   :exclusions
                   [org.eclipse.platform/org.eclipse.equinox.common]]
@@ -106,43 +90,70 @@
                    org.eclipse.platform/org.eclipse.equinox.common
                    ]]
 
-                 [org.eclipse.platform/org.eclipse.text "3.10.200"
-                  :exclusions
-                  [
-                   org.eclipse.platform/org.eclipse.equinox.common
-                   org.eclipse.platform/org.eclipse.equinox.registry
-                   org.eclipse.platform/org.eclipse.osgi
-                   org.eclipse.platform/org.eclipse.equinox.app
-                   org.eclipse.platform/org.eclipse.equinox.preferences
-                   org.eclipse.platform/org.eclipse.core.contenttype
-                   org.eclipse.platform/org.eclipse.core.jobs
-                   org.eclipse.platform/org.eclipse.core.runtime
-                   org.eclipse.platform/org.eclipse.core.commands
-                   ]
-                  ]
+                 ;; [org.eclipse.platform/org.eclipse.core.runtime "3.19.0"
+                 ;;  :exclusions
+                 ;;  [
+                 ;;   org.eclipse.platform/org.eclipse.equinox.common
+                 ;;   org.eclipse.platform/org.eclipse.equinox.registry
+                 ;;   org.eclipse.platform/org.eclipse.osgi
+                 ;;   org.eclipse.platform/org.eclipse.equinox.app
+                 ;;   org.eclipse.platform/org.eclipse.equinox.preferences
+                 ;;   org.eclipse.platform/org.eclipse.core.contenttype
+                 ;;   org.eclipse.platform/org.eclipse.core.jobs
+                 ;;   org.eclipse.platform/org.eclipse.core.runtime
+                 ;;   org.eclipse.platform/org.eclipse.core.commands
 
-                 [org.eclipse.platform/org.eclipse.jface.text "3.16.300"
-                  :exclusions
-                  [
-                   org.eclipse.platform/org.eclipse.swt
-                   org.eclipse.platform/org.eclipse.jface
-                   org.eclipse.platform/org.eclipse.text
-                   org.eclipse.platform/org.eclipse.equinox.common
-                   org.eclipse.platform/org.eclipse.equinox.registry
-                   org.eclipse.platform/org.eclipse.osgi
-                   org.eclipse.platform/org.eclipse.equinox.app
-                   org.eclipse.platform/org.eclipse.equinox.preferences
-                   org.eclipse.platform/org.eclipse.core.contenttype
-                   org.eclipse.platform/org.eclipse.core.jobs
-                   org.eclipse.platform/org.eclipse.core.runtime
-                   org.eclipse.platform/org.eclipse.core.commands
-                   ]
-                  ]
+                 ;;   ]
+                 ;;  ]
+
+
+
+                 ;; [org.eclipse.platform/org.eclipse.text "3.10.200"
+                 ;;  :exclusions
+                 ;;  [
+                 ;;   org.eclipse.platform/org.eclipse.equinox.common
+                 ;;   org.eclipse.platform/org.eclipse.equinox.registry
+                 ;;   org.eclipse.platform/org.eclipse.osgi
+                 ;;   org.eclipse.platform/org.eclipse.equinox.app
+                 ;;   org.eclipse.platform/org.eclipse.equinox.preferences
+                 ;;   org.eclipse.platform/org.eclipse.core.contenttype
+                 ;;   org.eclipse.platform/org.eclipse.core.jobs
+                 ;;   org.eclipse.platform/org.eclipse.core.runtime
+                 ;;   org.eclipse.platform/org.eclipse.core.commands
+                 ;;   ]
+                 ;;  ]
+
+                 ;; [org.eclipse.platform/org.eclipse.jface.text "3.16.300"
+                 ;;  :exclusions
+                 ;;  [
+                 ;;   org.eclipse.platform/org.eclipse.swt
+                 ;;   org.eclipse.platform/org.eclipse.jface
+                 ;;   org.eclipse.platform/org.eclipse.text
+                 ;;   org.eclipse.platform/org.eclipse.equinox.common
+                 ;;   org.eclipse.platform/org.eclipse.equinox.registry
+                 ;;   org.eclipse.platform/org.eclipse.osgi
+                 ;;   org.eclipse.platform/org.eclipse.equinox.app
+                 ;;   org.eclipse.platform/org.eclipse.equinox.preferences
+                 ;;   org.eclipse.platform/org.eclipse.core.contenttype
+                 ;;   org.eclipse.platform/org.eclipse.core.jobs
+                 ;;   org.eclipse.platform/org.eclipse.core.runtime
+                 ;;   org.eclipse.platform/org.eclipse.core.commands
+                 ;;   ]
+                 ;;  ]
                  ]
 
   :managed-dependencies [
                          [org.eclipse.platform/org.eclipse.swt "3.114.100"]
                          [org.eclipse.platform/org.eclipse.core.runtime "3.19.0"]
+                         [org.eclipse.platform/org.eclipse.jface.text "3.16.300"]
+                         [org.eclipse.platform/org.eclipse.text "3.10.200"]
+                         ;;[org.eclipse.platform/org.eclipse.jface "3.20.0"]
+                         ;;[org.eclipse.platform/org.eclipse.core.databinding.beans "1.6.100"]
+                         ;;[org.eclipse.platform/org.eclipse.core.databinding.observable "1.9.0"]
+                         ;;[org.eclipse.platform/org.eclipse.core.databinding "1.9.0"]
+                         ;;[org.eclipse.platform/org.eclipse.core.databinding.property "1.8.0"]
+                         ;;[org.eclipse.platform/org.eclipse.jface.databinding "1.11.100"]
+
                          ;;[org.eclipse.platform/org.eclipse.core.commands "3.9.700"]
                          ;; ~swt
                          ]
