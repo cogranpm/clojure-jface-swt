@@ -2,13 +2,13 @@
                               ["os.arch" "os.name"])
       platform (apply format "%s (%s)" (vals properties))
       swt (case platform
-            "amd64 (Windows 10)" [org.eclipse.platform/org.eclipse.swt.win32.win32.x86_64 "3.110.0"]
-            "amd64 (Linux)"      [org.eclipse.platform/org.eclipse.swt.gtk.linux.x86_64 "3.110.0"] 
-            "x86_64 (Mac OS X)" [org.eclipse.platform/org.eclipse.swt.cocoa.macosx.x86_64 "3.110.0"] )
+            ;; "amd64 (Windows 10)" (vec '(org.eclipse.platform/org.eclipse.swt.win32.win32.x86_64 "3.110.0"))
+            ;; "amd64 (Linux)"      (vec '(org.eclipse.platform/org.eclipse.swt.gtk.linux.x86_64 "3.110.0")) 
+            ;; "x86_64 (Mac OS X)" (vec '(org.eclipse.platform/org.eclipse.swt.cocoa.macosx.x86_64 "3.110.0")) )
 
-      ;;"amd64 (Windows 10)" "lib/org.eclipse.swt.win32.win32.x86_64_3.114.0.v20200304-0601.jar"
-      ;;"amd64 (Linux)"      "lib/org.eclipse.swt.gtk.linux.x86_64_3.112.0.v20190904-0609.jar"
-      ;;"x86_64 (Mac OS X)" "lib/org.eclipse.swt.cocoa.macosx.x86_64_3.110.0.v20190305-0602.jar" )
+      "amd64 (Windows 10)" "lib/org.eclipse.swt.win32.win32.x86_64_3.114.0.v20200304-0601.jar"
+      "amd64 (Linux)"      "lib/org.eclipse.swt.gtk.linux.x86_64_3.112.0.v20190904-0609.jar"
+      "x86_64 (Mac OS X)" "lib/org.eclipse.swt.cocoa.macosx.x86_64_3.110.0.v20190305-0602.jar" )
 
 
 
@@ -33,21 +33,21 @@
                  ;;[~swt "3.110.0" ]
 
                  
-                 [org.eclipse.platform/org.eclipse.core.runtime "3.19.0"
-                  :exclusions
-                  [
-                   org.eclipse.platform/org.eclipse.equinox.common
-                   org.eclipse.platform/org.eclipse.equinox.registry
-                   org.eclipse.platform/org.eclipse.osgi
-                   org.eclipse.platform/org.eclipse.equinox.app
-                   org.eclipse.platform/org.eclipse.equinox.preferences
-                   org.eclipse.platform/org.eclipse.core.contenttype
-                   org.eclipse.platform/org.eclipse.core.jobs
-                   org.eclipse.platform/org.eclipse.core.runtime
-                   org.eclipse.platform/org.eclipse.core.commands
+                 ;; [org.eclipse.platform/org.eclipse.core.runtime "3.19.0"
+                 ;;  :exclusions
+                 ;;  [
+                 ;;   org.eclipse.platform/org.eclipse.equinox.common
+                 ;;   org.eclipse.platform/org.eclipse.equinox.registry
+                 ;;   org.eclipse.platform/org.eclipse.osgi
+                 ;;   org.eclipse.platform/org.eclipse.equinox.app
+                 ;;   org.eclipse.platform/org.eclipse.equinox.preferences
+                 ;;   org.eclipse.platform/org.eclipse.core.contenttype
+                 ;;   org.eclipse.platform/org.eclipse.core.jobs
+                 ;;   org.eclipse.platform/org.eclipse.core.runtime
+                 ;;   org.eclipse.platform/org.eclipse.core.commands
 
-                   ]
-                  ]
+                 ;;   ]
+                 ;;  ]
 
                  [org.eclipse.platform/org.eclipse.core.commands "3.9.700"
                   :exclusions
@@ -142,7 +142,8 @@
 
   :managed-dependencies [
                          [org.eclipse.platform/org.eclipse.swt "3.114.100"]
-                         ~swt
+                         [org.eclipse.platform/org.eclipse.core.runtime "3.19.0"]
+                         ;; ~swt
                          ]
 
   :repositories [["java.net" "https://download.java.net/maven/2"]
@@ -162,7 +163,7 @@
                               ;; You can also apply them to releases only:
                                :releases {:checksum :fail :update :always}}]]
   :resource-paths ["resources/images"
-                   ;;~swt
+                   ~swt
                    ;;"lib/com.ibm.icu_64.2.0.v20190507-1337.jar"
                    ;;"lib/org.eclipse.core.commands_3.9.700.v20191217-1850.jar"
                    ;;"lib/org.eclipse.core.databinding.beans_1.6.100.v20191217-1850.jar"
