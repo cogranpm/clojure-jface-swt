@@ -33,6 +33,8 @@
 
   (:gen-class))
 
+;; we need to keep a map of tabs that have been opened
+
 
 ;; this is literally a form we show in a tab on the main window 
 (defrecord Form [fields
