@@ -175,6 +175,8 @@
                               ;; You can also apply them to releases only:
                                :releases {:checksum :fail :update :always}}]]
   :resource-paths ["resources/images"
+                   ;; not ideal, have to place platform specific jar for swt in the lib folder
+                   ;; won't download automatically maven style
                    ~swt
                    ;;"lib/com.ibm.icu_64.2.0.v20190507-1337.jar"
                    ;;"lib/org.eclipse.core.commands_3.9.700.v20191217-1850.jar"
